@@ -1,13 +1,18 @@
+import os 
+AOZRA_PEPO = './aozorabunko'
+CSV_LIST = os.path.join('Users/haru/TDU/aozora-corpus-generator')
+
 import requests
 import zipfile, io, re
 import os, pandas as pd
 from aozora_corpus_generator.aozora import read_aozora_bunko_list, read_aozora_bunko_xml
 
+
 # 万葉集 book_id
 BOOK_ID = '200015542'
 # 青空文庫パス
 AOZORA_REPO = 'path/to/aozorabunko'
-CSV_LIST = os.path.join(AOZORA_REPO, 'list_person_all_extended_utf8.zip')
+CSV_LIST = os.path.join(AOZORA_REPO, 'list_person_all_extended_utf8.csv')
 
 def fetch_manyoshu():
     url = f'https://codh.rois.ac.jp/pmjt/book/{BOOK_ID}/download.zip'
@@ -29,7 +34,7 @@ def fetch_manyoshu():
         'era':'奈良','collection':'万葉集','season':'','theme':'','notes':''})
 
 def fetch_aozora():
-    aozora_db = read_aozora_bunko_list(CSV_LIST, ndc_map=None)
+    aozora_db = read_aozora_bunko_list(CSV_LIST,ndc=NotImplemented)
     rows=[]
     for author, works in aozora_db.items():
         for title, meta in works.items():
